@@ -4,12 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday Adrian!</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap');
 
-        /* =======================================
-           1. GLOBAL RESET & BASE CONTAINERS
-           ======================================= */
         *, *::before, *::after {
             box-sizing: border-box;
         }
@@ -23,7 +21,6 @@
             width: 100vw;
             height: 100dvh;
             margin: 0;
-            padding: 0;
             font-family: 'Fredoka', sans-serif;
             overflow: hidden;
             touch-action: manipulation; 
@@ -47,32 +44,30 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            gap: clamp(12px, 2.5dvh, 24px);
             position: relative;
             z-index: 10;
             pointer-events: none;
-            width: clamp(300px, 88vw, 680px);
-            height: auto;
-            max-height: 92dvh;
-            border-radius: clamp(20px, 3vw, 36px);
-            padding: clamp(24px, 4.5dvh, 45px) clamp(20px, 4vw, 40px);
+            box-sizing: border-box;
+            width: 92vw;
+            height: 90dvh;
+            max-width: 750px;
+            max-height: 850px;
+            border-radius: 20px;
+            padding: 20px;
         }
 
         .card > * {
             pointer-events: auto;
         }
 
-        /* =======================================
-           2. GRAPHICS, SVG ART & ANIMATIONS
-           ======================================= */
         .graphics {
             position: relative;
             width: 100%;
-            max-width: 420px;
-            height: clamp(180px, 30dvh, 260px);
             display: flex;
             justify-content: center;
-            margin: 0 auto;
+            flex-grow: 1;
+            min-height: 180px;
+            margin: 15px 0;
         }
 
         .svg-art {
@@ -101,15 +96,15 @@
         .float-3 { animation: float 4.2s ease-in-out infinite 1s; }
         .float-4 { animation: float 3.8s ease-in-out infinite 1.5s; }
 
-        .b1 { width: clamp(34px, 12%, 48px); left: 6%; top: 22%; }
-        .b2 { width: clamp(38px, 14%, 54px); left: 22%; top: 2%; }
-        .cake-svg { width: clamp(135px, 45%, 190px); bottom: 0; }
-        .b3 { width: clamp(38px, 14%, 54px); right: 22%; top: 5%; }
-        .b4 { width: clamp(34px, 12%, 48px); right: 6%; top: 25%; }
+        .b1 { width: 12%; left: 5%; top: 35%; }
+        .b2 { width: 14%; left: 20%; top: 10%; }
+        .cake-svg { width: 42%; bottom: 0; cursor: pointer; }
+        .b3 { width: 14%; right: 20%; top: 15%; }
+        .b4 { width: 12%; right: 5%; top: 40%; }
 
         @keyframes float {
             0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-10px) rotate(2deg); }
+            50% { transform: translateY(-12px) rotate(2deg); }
         }
 
         @keyframes flicker {
@@ -117,9 +112,6 @@
             100% { transform: scale(1.1) skewX(-3deg); opacity: 0.8; }
         }
 
-        /* =======================================
-           3. TYPOGRAPHY & TEXT POP-IN
-           ======================================= */
         h1 {
             color: #554c50;
             font-weight: 600;
@@ -129,19 +121,20 @@
         }
 
         .wish {
-            font-size: clamp(1rem, 2.5dvh, 1.5rem);
+            font-size: clamp(16px, 4vw, 24px);
+            margin-bottom: 10px;
         }
 
         .bottom-text {
-            font-size: clamp(1.5rem, 4dvh, 2.5rem);
+            font-size: clamp(24px, 6vw, 42px);
         }
 
         .name {
             color: #d15c8a;
             font-weight: 700;
             display: block;
-            margin-top: 4px;
-            font-size: clamp(2.6rem, 7.5dvh, 5rem);
+            margin-top: 5px;
+            font-size: clamp(40px, 11vw, 90px);
         }
 
         .text-animate {
@@ -160,94 +153,82 @@
             100% { opacity: 1; transform: translateY(0); }
         }
 
-        /* =========================================================
-           4. MULTI-DEVICE MEDIA QUERIES (DESKTOP, TABLET, MOBILE)
-           ========================================================= */
-
-        @media screen and (max-width: 1280px) and (min-height: 561px) {
+        @media screen and (min-width: 600px) and (max-width: 1024px) {
             .card {
-                width: clamp(320px, 78vw, 600px);
-                padding: clamp(20px, 3.5dvh, 35px);
-            }
-            .graphics {
-                height: clamp(170px, 28dvh, 230px);
-            }
-        }
-
-        @media screen and (orientation: portrait) and (min-width: 601px) and (max-width: 1024px) {
-            .card {
-                width: 82vw;
-                max-width: 560px;
-                padding: 35px 30px;
-                gap: 20px;
-            }
-            .graphics {
-                height: clamp(200px, 28dvh, 260px);
-            }
-        }
-
-        @media screen and (orientation: portrait) and (max-width: 600px) {
-            .card {
-                width: 90vw;
-                padding: 28px 18px;
-                gap: 14px;
-                border-radius: 22px;
-            }
-            .graphics {
-                height: clamp(165px, 26dvh, 210px);
-                max-width: 310px;
+                width: 80vw;
+                height: 75dvh;
+                border-radius: 30px;
+                padding: 35px;
             }
             .wish {
-                font-size: clamp(0.95rem, 4.2vw, 1.2rem);
+                font-size: 24px;
             }
             .bottom-text {
-                font-size: clamp(1.4rem, 6vw, 1.85rem);
+                font-size: 42px;
             }
             .name {
-                font-size: clamp(2.4rem, 11vw, 3.4rem);
+                font-size: 75px;
             }
         }
 
-        @media screen and (orientation: landscape) and (max-height: 560px) {
+        @media screen and (min-width: 1025px) {
             .card {
-                width: 94vw !important;
-                height: 88dvh !important;
-                max-width: 720px !important;
-                flex-direction: row !important;
-                justify-content: space-around !important;
-                align-items: center !important;
-                padding: 12px 20px !important;
-                gap: 12px !important;
-                border-radius: 18px !important;
+                width: 70vw;
+                max-width: 750px;
+                aspect-ratio: 4 / 3;
+                height: auto;
+                border-radius: 40px;
+                padding: 50px;
             }
             .wish {
-                position: absolute;
-                top: 12px;
-                left: 0;
-                width: 100%;
-                font-size: clamp(0.8rem, 3.5dvh, 1.05rem) !important;
+                font-size: 28px;
+            }
+            .bottom-text {
+                font-size: 48px;
+            }
+            .name {
+                font-size: 95px;
+            }
+        }
+
+        @media screen and (orientation: landscape) and (max-height: 550px) {
+            .card {
+                width: 95vw;
+                height: 95dvh;
+                flex-direction: row;
+                justify-content: space-around;
+                align-items: center;
+                padding: 15px;
             }
             .graphics {
-                width: 46% !important;
-                height: 75% !important;
-                margin: 20px 0 0 0 !important;
+                width: 45%;
+                min-height: auto;
+                height: 90%;
+                margin: 0;
             }
             .card > div:nth-of-type(2) {
-                width: 48% !important;
+                width: 50%;
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
-                margin-top: 16px;
+            }
+            .wish {
+                font-size: 15px;
+                margin-bottom: 5px;
             }
             .bottom-text {
-                font-size: clamp(1.1rem, 5.5dvh, 1.6rem) !important;
+                font-size: 22px;
             }
             .name {
-                font-size: clamp(2rem, 11dvh, 3.2rem) !important;
+                font-size: 40px;
             }
             .cake-svg {
-                width: clamp(100px, 52%, 145px) !important;
+                width: 55%;
             }
+            .b1 { width: 15%; top: 25%; }
+            .b2 { width: 18%; top: 5%; }
+            .b3 { width: 18%; top: 10%; }
+            .b4 { width: 15%; top: 30%; }
         }
     </style>
 </head>
@@ -371,13 +352,58 @@
                 particles.push(new RayParticle(x, y));
             }
         }
+
+        function blowOutCandles() {
+            const flames = document.querySelectorAll('.flame');
+            let isFirstBlow = false;
+            
+            flames.forEach(flame => {
+                if (flame.style.opacity !== '0') {
+                    isFirstBlow = true;
+                }
+                flame.style.opacity = '0';
+                flame.style.animation = 'none';
+                flame.style.transform = 'scale(0)';
+            });
+
+            if (isFirstBlow && typeof confetti === 'function') {
+                const confettiColors = ['#ff007f', '#f3b765', '#d87093', '#ffffff'];
+                
+                confetti({
+                    particleCount: 100,
+                    angle: 60,
+                    spread: 70,
+                    origin: { x: 0, y: 0.9 },
+                    colors: confettiColors,
+                    zIndex: 100
+                });
+                
+                confetti({
+                    particleCount: 100,
+                    angle: 120,
+                    spread: 70,
+                    origin: { x: 1, y: 0.9 },
+                    colors: confettiColors,
+                    zIndex: 100
+                });
+            }
+        }
         
         function handleInteraction(e) {
-            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-            spawnFireworks(clientX, clientY);
+            if (!e.target.closest('.cake-svg')) {
+                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+                spawnFireworks(clientX, clientY);
+            }
             initMic();
         }
+
+        const cakeElement = document.querySelector('.cake-svg');
+        cakeElement.addEventListener('pointerdown', blowOutCandles);
+        cakeElement.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            blowOutCandles();
+        });
 
         window.addEventListener('pointerdown', handleInteraction);
         window.addEventListener('touchstart', handleInteraction, { passive: true });
@@ -387,7 +413,13 @@
         async function initMic() {
             if (micInitialized) return;
             try {
-                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                const stream = await navigator.mediaDevices.getUserMedia({ 
+                    audio: {
+                        echoCancellation: false,
+                        autoGainControl: false,
+                        noiseSuppression: false
+                    } 
+                });
                 micInitialized = true;
                 
                 const audioContext = new (window.AudioContext || window.webkitAudioContext)();
@@ -407,19 +439,13 @@
                     }
                     let averageVolume = sum / bufferLength;
 
-                    if (averageVolume > 60) { 
-                        const flames = document.querySelectorAll('.flame');
-                        flames.forEach(flame => {
-                            flame.style.opacity = '0';
-                            flame.style.animation = 'none';
-                            flame.style.transform = 'scale(0)';
-                        });
+                    if (averageVolume > 40) { 
+                        blowOutCandles();
                     }
                     requestAnimationFrame(detectBlow);
                 }
                 detectBlow();
             } catch (err) {
-                console.warn(err);
             }
         }
     </script>
