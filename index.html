@@ -7,14 +7,23 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap');
 
+        /* =======================================
+           1. GLOBAL RESET & BASE CONTAINERS
+           ======================================= */
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
         body {
             background-color: #e5005c; 
             background-image: radial-gradient(circle, #ff007f, #8a0038);
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            width: 100vw;
+            height: 100dvh;
             margin: 0;
+            padding: 0;
             font-family: 'Fredoka', sans-serif;
             overflow: hidden;
             touch-action: manipulation; 
@@ -26,44 +35,44 @@
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 20; 
-            pointer-events: none; 
+            z-index: 20;
+            pointer-events: none;
         }
 
         .card {
             background-color: #fcf5f5;
-            border-radius: clamp(20px, 4vw, 40px);
-            padding: clamp(30px, 5vw, 60px) clamp(20px, 4vw, 40px);
             text-align: center;
             box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-            width: 90vw;
-            max-width: 800px;
-            min-height: 500px;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            justify-content: center;
+            align-items: center;
+            gap: clamp(12px, 2.5dvh, 24px);
             position: relative;
             z-index: 10;
-            pointer-events: none; 
-        }
-
-        @media (min-width: 768px) {
-            .card {
-                aspect-ratio: 4 / 3;
-                min-height: 600px;
-            }
+            pointer-events: none;
+            width: clamp(300px, 88vw, 680px);
+            height: auto;
+            max-height: 92dvh;
+            border-radius: clamp(20px, 3vw, 36px);
+            padding: clamp(24px, 4.5dvh, 45px) clamp(20px, 4vw, 40px);
         }
 
         .card > * {
             pointer-events: auto;
         }
 
+        /* =======================================
+           2. GRAPHICS, SVG ART & ANIMATIONS
+           ======================================= */
         .graphics {
             position: relative;
             width: 100%;
-            flex-grow: 1;
-            min-height: 220px;
-            margin-bottom: clamp(15px, 4vh, 30px);
+            max-width: 420px;
+            height: clamp(180px, 30dvh, 260px);
+            display: flex;
+            justify-content: center;
+            margin: 0 auto;
         }
 
         .svg-art {
@@ -92,15 +101,15 @@
         .float-3 { animation: float 4.2s ease-in-out infinite 1s; }
         .float-4 { animation: float 3.8s ease-in-out infinite 1.5s; }
 
-        .b1 { width: 12%; left: 5%; top: 40%; }
-        .b2 { width: 14%; left: 22%; top: 15%; }
-        .cake-svg { width: clamp(140px, 40%, 250px); left: 50%; bottom: 0; transform: translateX(-50%); }
-        .b3 { width: 14%; right: 22%; top: 25%; }
-        .b4 { width: 12%; right: 5%; top: 45%; }
+        .b1 { width: clamp(34px, 12%, 48px); left: 6%; top: 22%; }
+        .b2 { width: clamp(38px, 14%, 54px); left: 22%; top: 2%; }
+        .cake-svg { width: clamp(135px, 45%, 190px); bottom: 0; }
+        .b3 { width: clamp(38px, 14%, 54px); right: 22%; top: 5%; }
+        .b4 { width: clamp(34px, 12%, 48px); right: 6%; top: 25%; }
 
         @keyframes float {
             0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-15px) rotate(2deg); }
+            50% { transform: translateY(-10px) rotate(2deg); }
         }
 
         @keyframes flicker {
@@ -108,24 +117,31 @@
             100% { transform: scale(1.1) skewX(-3deg); opacity: 0.8; }
         }
 
+        /* =======================================
+           3. TYPOGRAPHY & TEXT POP-IN
+           ======================================= */
         h1 {
             color: #554c50;
-            font-size: clamp(32px, 6vw, 55px);
             font-weight: 600;
             margin: 0;
-            line-height: 1.1;
+            line-height: 1.15;
+            width: 100%;
+        }
+
+        .wish {
+            font-size: clamp(1rem, 2.5dvh, 1.5rem);
+        }
+
+        .bottom-text {
+            font-size: clamp(1.5rem, 4dvh, 2.5rem);
         }
 
         .name {
             color: #d15c8a;
-            font-size: clamp(50px, 12vw, 120px);
             font-weight: 700;
-            margin: 10px 0;
-        }
-
-        .wish {
-            margin-bottom: clamp(15px, 4vh, 40px);
-            font-size: clamp(20px, 5vw, 36px);
+            display: block;
+            margin-top: 4px;
+            font-size: clamp(2.6rem, 7.5dvh, 5rem);
         }
 
         .text-animate {
@@ -143,15 +159,105 @@
             0% { opacity: 0; transform: translateY(30px); }
             100% { opacity: 1; transform: translateY(0); }
         }
+
+        /* =========================================================
+           4. MULTI-DEVICE MEDIA QUERIES (DESKTOP, TABLET, MOBILE)
+           ========================================================= */
+
+        @media screen and (max-width: 1280px) and (min-height: 561px) {
+            .card {
+                width: clamp(320px, 78vw, 600px);
+                padding: clamp(20px, 3.5dvh, 35px);
+            }
+            .graphics {
+                height: clamp(170px, 28dvh, 230px);
+            }
+        }
+
+        @media screen and (orientation: portrait) and (min-width: 601px) and (max-width: 1024px) {
+            .card {
+                width: 82vw;
+                max-width: 560px;
+                padding: 35px 30px;
+                gap: 20px;
+            }
+            .graphics {
+                height: clamp(200px, 28dvh, 260px);
+            }
+        }
+
+        @media screen and (orientation: portrait) and (max-width: 600px) {
+            .card {
+                width: 90vw;
+                padding: 28px 18px;
+                gap: 14px;
+                border-radius: 22px;
+            }
+            .graphics {
+                height: clamp(165px, 26dvh, 210px);
+                max-width: 310px;
+            }
+            .wish {
+                font-size: clamp(0.95rem, 4.2vw, 1.2rem);
+            }
+            .bottom-text {
+                font-size: clamp(1.4rem, 6vw, 1.85rem);
+            }
+            .name {
+                font-size: clamp(2.4rem, 11vw, 3.4rem);
+            }
+        }
+
+        @media screen and (orientation: landscape) and (max-height: 560px) {
+            .card {
+                width: 94vw !important;
+                height: 88dvh !important;
+                max-width: 720px !important;
+                flex-direction: row !important;
+                justify-content: space-around !important;
+                align-items: center !important;
+                padding: 12px 20px !important;
+                gap: 12px !important;
+                border-radius: 18px !important;
+            }
+            .wish {
+                position: absolute;
+                top: 12px;
+                left: 0;
+                width: 100%;
+                font-size: clamp(0.8rem, 3.5dvh, 1.05rem) !important;
+            }
+            .graphics {
+                width: 46% !important;
+                height: 75% !important;
+                margin: 20px 0 0 0 !important;
+            }
+            .card > div:nth-of-type(2) {
+                width: 48% !important;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                margin-top: 16px;
+            }
+            .bottom-text {
+                font-size: clamp(1.1rem, 5.5dvh, 1.6rem) !important;
+            }
+            .name {
+                font-size: clamp(2rem, 11dvh, 3.2rem) !important;
+            }
+            .cake-svg {
+                width: clamp(100px, 52%, 145px) !important;
+            }
+        }
     </style>
 </head>
 <body>
-
     <canvas id="fireworksCanvas"></canvas>
     <div class="card">
         <h1 class="wish">
             <span class="text-animate delay-4">Wish ka muna bago mo hipan yung cake :)</span>
         </h1>
+        
         <div class="graphics">
             <svg viewBox="0 0 50 100" class="svg-art pink-stroke float-1 b1">
                 <path d="M25 10 C5 10 5 45 25 55 C45 45 45 10 25 10 Z" />
@@ -194,11 +300,13 @@
             </svg>
         </div>
         
-        <h1>
-            <span class="text-animate delay-1">Happy</span><br>
-            <span class="text-animate delay-2">Birthday</span><br>
-            <span class="name text-animate delay-3">Adrian!</span>
-        </h1>
+        <div>
+            <h1 class="bottom-text">
+                <span class="text-animate delay-1">Happy</span> 
+                <span class="text-animate delay-2">Birthday</span><br>
+                <span class="name text-animate delay-3">Adrian!</span>
+            </h1>
+        </div>
     </div>
 
     <script>
@@ -264,10 +372,15 @@
             }
         }
         
-        window.addEventListener('pointerdown', (e) => {
-            spawnFireworks(e.clientX, e.clientY);
+        function handleInteraction(e) {
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+            spawnFireworks(clientX, clientY);
             initMic();
-        });
+        }
+
+        window.addEventListener('pointerdown', handleInteraction);
+        window.addEventListener('touchstart', handleInteraction, { passive: true });
 
         let micInitialized = false;
         
