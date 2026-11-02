@@ -48,7 +48,6 @@
             z-index: 10;
             pointer-events: none;
             box-sizing: border-box;
-            
             width: 90vw;
             height: auto;
             min-height: 55vh;
@@ -96,11 +95,11 @@
         .float-3 { animation: float 4.2s ease-in-out infinite 1s; }
         .float-4 { animation: float 3.8s ease-in-out infinite 1.5s; }
 
-        .b1 { width: 14%; left: 8%; top: 30%; }
-        .b2 { width: 16%; left: 22%; top: 5%; }
-        .cake-svg { width: 45%; bottom: 0; cursor: pointer; }
-        .b3 { width: 16%; right: 22%; top: 10%; }
-        .b4 { width: 14%; right: 8%; top: 35%; }
+        .b1 { width: clamp(35px, 12%, 60px); left: 8%; top: 30%; }
+        .b2 { width: clamp(45px, 14%, 75px); left: 22%; top: 5%; }
+        .cake-svg { width: clamp(140px, 45%, 280px); bottom: 0; left: 50%; transform: translateX(-50%); }
+        .b3 { width: clamp(45px, 14%, 75px); right: 22%; top: 10%; }
+        .b4 { width: clamp(35px, 12%, 60px); right: 8%; top: 35%; }
 
         @keyframes float {
             0%, 100% { transform: translateY(0) rotate(0deg); }
@@ -224,13 +223,10 @@
             .name {
                 font-size: 45px;
             }
-            .cake-svg {
-                width: 55%;
-            }
-            .b1 { width: 15%; top: 25%; }
-            .b2 { width: 18%; top: 5%; }
-            .b3 { width: 18%; top: 10%; }
-            .b4 { width: 15%; top: 30%; }
+            .b1 { top: 25%; }
+            .b2 { top: 5%; }
+            .b3 { top: 10%; }
+            .b4 { top: 30%; }
         }
     </style>
 </head>
@@ -392,20 +388,11 @@
         }
         
         function handleInteraction(e) {
-            if (!e.target.closest('.cake-svg')) {
-                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-                const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-                spawnFireworks(clientX, clientY);
-            }
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+            spawnFireworks(clientX, clientY);
             initMic();
         }
-
-        const cakeElement = document.querySelector('.cake-svg');
-        cakeElement.addEventListener('pointerdown', blowOutCandles);
-        cakeElement.addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            blowOutCandles();
-        });
 
         window.addEventListener('pointerdown', handleInteraction);
         window.addEventListener('touchstart', handleInteraction, { passive: true });
